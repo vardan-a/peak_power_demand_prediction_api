@@ -6,8 +6,8 @@ import pandas as pd
 # Code from Best Pipeline.py here
 
 
+from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor
 
 # NOTE: Make sure that the outcome column is labeled 'target' in the data file
 tpot_data = pd.read_csv('https://raw.githubusercontent.com/vardan-a/peak_power_demand_prediction_api/master/ppdp_code/prepared_data.csv')
@@ -15,8 +15,8 @@ features = tpot_data.drop('target', axis=1)
 training_features, testing_features, training_target, testing_target = \
             train_test_split(features, tpot_data['target'], random_state=None)
 
-# Average CV score on the training set was: -0.0010834198861713793
-exported_pipeline = DecisionTreeRegressor(max_depth=10, min_samples_leaf=8, min_samples_split=3)
+# Average CV score on the training set was: -628261.0209828143
+exported_pipeline = GradientBoostingRegressor(alpha=0.75, learning_rate=1.0, loss="ls", max_depth=2, max_features=0.2, min_samples_leaf=10, min_samples_split=7, n_estimators=100, subsample=0.1)
 
 exported_pipeline.fit(training_features, training_target)
 
